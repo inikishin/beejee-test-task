@@ -31,16 +31,16 @@ function Login({closeModal}) {
 
     const submitForm = () => {
 
-        let localErrors = []
+        let localErrors = {};
         if (form.username === '') {
-            localErrors.push('Field username is empty');
+            localErrors.username = {error: true, helperText: 'Field username is empty'}
         }
         if (form.password === '') {
-            localErrors.push('Field password is empty');
+            localErrors.password = {error: true, helperText: 'Field password is empty'}
         }
 
-        if (localErrors.length > 0) {
-            setErrors(localErrors)
+        if (Object.keys(localErrors).length > 0) {
+            setErrors(localErrors);
         } else {
             let task = new FormData();
             task.append("username", form.username);
@@ -63,7 +63,7 @@ function Login({closeModal}) {
                             </Grid>
                             <Grid item>
                                 <TextField name="username" label="Enter user name" fullWidth={true}
-                                           value={form.username} onChange={onChange}/>
+                                           value={form.username} onChange={onChange} {...errors.username}/>
                             </Grid>
                         </Grid>
                     </div>
@@ -75,7 +75,7 @@ function Login({closeModal}) {
                             </Grid>
                             <Grid item>
                                 <TextField name="password" label="Enter password" fullWidth={true} type="password"
-                                           value={form.password} onChange={onChange}/>
+                                           value={form.password} onChange={onChange} {...errors.password}/>
                             </Grid>
                         </Grid>
                     </div>

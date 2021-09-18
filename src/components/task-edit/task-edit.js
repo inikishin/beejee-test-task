@@ -22,26 +22,25 @@ function TaskEdit({title, closeModal, okModal, username, email, text, status}) {
     const {isAuthenticated} = useSelector(store => ({...store.auth}))
 
     const [form, setFormValue] = useState({username: username, email: email, text: text, status: status});
-    const [errors, setErrors] = useState([]);
+    const [errors, setErrors] = useState({});
 
     const onChange = (e) => {
         setFormValue({...form, [e.target.name]: e.target.value});
-        console.log(form);
     }
 
     const submitForm = () => {
-        let localErrors = []
+        let localErrors = {};
         if (form.username === '') {
-            localErrors.push('Field username is empty');
+            localErrors.username = {error: true, helperText: 'Field username is empty'}
         }
         if (!(form.email.includes('@') && form.email.includes('.'))) {
-            localErrors.push('Field email is incorrect');
+            localErrors.email = {error: true, helperText: 'Field email is incorrect'}
         }
         if (form.text === '') {
-            localErrors.push('Field text is empty');
+            localErrors.text = {error: true, helperText: 'Field text is incorrect'}
         }
 
-        if (localErrors.length > 0) {
+        if (Object.keys(localErrors).length > 0) {
             setErrors(localErrors)
         } else {
             okModal(form);
@@ -60,7 +59,7 @@ function TaskEdit({title, closeModal, okModal, username, email, text, status}) {
                             </Grid>
                             <Grid item>
                                 <TextField name="username" label="Enter user name" fullWidth={true}
-                                           value={form.username} onChange={onChange} required/>
+                                           value={form.username} onChange={onChange} required {...errors.username}/>
                             </Grid>
                         </Grid>
                     </div>
@@ -72,7 +71,7 @@ function TaskEdit({title, closeModal, okModal, username, email, text, status}) {
                             </Grid>
                             <Grid item>
                                 <TextField name="email" label="Enter email" fullWidth={true}
-                                           value={form.email} onChange={onChange} type='email' required/>
+                                           value={form.email} onChange={onChange} type='email' required {...errors.email}/>
                             </Grid>
                         </Grid>
                     </div>
@@ -88,6 +87,7 @@ function TaskEdit({title, closeModal, okModal, username, email, text, status}) {
                             value={form.text}
                             onChange={onChange}
                             required
+                            {...errors.text}
                         />
                     </div>
 
@@ -104,14 +104,6 @@ function TaskEdit({title, closeModal, okModal, username, email, text, status}) {
                         </Button>
                     </div>
 
-                    {(errors.length > 0) && <div className={classes.errorMessages}>
-                        <Typography variant="caption" display="block" gutterBottom color="danger">Here is following
-                            errors:</Typography>
-                        {errors.map(item => (
-                            <Typography variant="caption" display="block" gutterBottom
-                                        color="danger">{item}</Typography>
-                        ))}
-                    </div>}
                 </form>
             </CardContent>
         </Card>
