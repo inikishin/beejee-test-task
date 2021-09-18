@@ -5,6 +5,7 @@ import {Card, CardHeader, CardContent, makeStyles, Modal} from "@material-ui/cor
 import TaskEdit from "../task-edit/task-edit";
 import {editTask} from "../../services/actions/tasks";
 import Status from "../status/status";
+import SimpleMessage from "../simple-message/simple-message";
 
 const useStyles = makeStyles((theme) => (styles));
 
@@ -39,7 +40,7 @@ function Task({id, username, email, text, status}) {
             <Card className={classes.taskContainer} onClick={openEditModal}>
                 <CardHeader title={`${username} (${email})`}/>
                 <CardContent>
-                    <Status isEdit={false} statusNumber={status}></Status>
+                    <Status isEdit={false} statusNumber={status} />
                     <h4>Description:</h4>
                     <p>{text}</p>
                 </CardContent>
@@ -50,7 +51,8 @@ function Task({id, username, email, text, status}) {
                     <TaskEdit title="Edit task" closeModal={closeEditModal} okModal={editTaskModal} username={username}
                            email={email} text={text} status={status}/>
                 :
-                    <div className={classes.cardContainer}>You are not authenticated</div>}
+                    <SimpleMessage text='You are not authenticated' />
+                }
             </Modal>
         </>
     )

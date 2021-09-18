@@ -5,6 +5,7 @@ import TaskEdit from "../task-edit/task-edit";
 import {useDispatch, useSelector} from "react-redux";
 import {createTask} from "../../services/actions/tasks";
 import Login from "../login/login";
+import {LOGOUT} from "../../services/actions/auth";
 
 const useStyles = makeStyles(theme => (styles));
 
@@ -44,7 +45,7 @@ function Header() {
     }
 
     const logout = () => {
-        console.log('Exit');
+        dispatch({type: LOGOUT})
     }
 
     return (
