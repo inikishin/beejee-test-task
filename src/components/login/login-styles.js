@@ -21,6 +21,11 @@ const styles = {
     inputWithIcon: {
         margin: 10,
     },
+    errorMessages: {
+        color: 'red',
+        marginTop: 20,
+        marginLeft: 20
+    }
 }
 
 export default styles;

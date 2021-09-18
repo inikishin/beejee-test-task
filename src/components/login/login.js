@@ -1,19 +1,17 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import styles from './login-styles';
 import {
     Button,
     Card,
     CardContent,
     CardHeader,
-    Checkbox,
-    FormControlLabel,
     Grid,
     makeStyles,
     TextField, Typography
 } from "@material-ui/core";
 import {AccountCircle, SecurityRounded} from "@material-ui/icons";
-import {useDispatch} from "react-redux";
-import {login} from "../../services/actions/auth";
+import {useSelector, useDispatch} from "react-redux";
+import {login, LOGOUT} from "../../services/actions/auth";
 
 const useStyles = makeStyles(theme => (styles));
 
@@ -21,13 +19,20 @@ function Login({closeModal}) {
 
     const classes = useStyles();
     const dispatch = useDispatch();
+    const {isAuthenticated, isLoggingIn, hasError} = useSelector(store => ({...store.auth}))
 
     const [form, setFormValue] = useState({username: '', password: ''});
-    const [errors, setErrors] = useState([]);
+    const [errors, setErrors] = useState({});
 
     const onChange = (e) => {
         setFormValue({...form, [e.target.name]: e.target.value});
     }
+
+    useEffect(() => {
+        if (isAuthenticated) {
+            closeModal();
+        }
+    }, [isAuthenticated]);
 
     const submitForm = () => {
 
@@ -47,8 +52,13 @@ function Login({closeModal}) {
             task.append("password", form.password);
 
             dispatch(login(task));
-            closeModal();
+            //closeModal();
         }
+    }
+
+    const handleCancel = () => {
+        dispatch({type: LOGOUT})
+        closeModal();
     }
 
     return (
@@ -81,21 +91,19 @@ function Login({closeModal}) {
                     </div>
 
                     <div className={classes.buttonsContainer}>
-                        <Button variant="contained" color="primary" onClick={submitForm}>
+                        <Button variant="contained" color="primary" onClick={submitForm} disabled={(isLoggingIn)}>
                             OK
                         </Button>
-                        <Button variant="contained" color="secondary" onClick={closeModal}>
+                        <Button variant="contained" color="secondary" onClick={handleCancel}>
                             Cancel
                         </Button>
                     </div>
 
-                    {(errors.length > 0) && <div className={classes.errorMessages}>
+                    {hasError.error && <div className={classes.errorMessages}>
                         <Typography variant="caption" display="block" gutterBottom color="danger">Here is following
                             errors:</Typography>
-                        {errors.map(item => (
-                            <Typography variant="caption" display="block" gutterBottom
-                                        color="danger">{item}</Typography>
-                        ))}
+                        <Typography variant="caption" display="block" gutterBottom
+                                    color="danger">{hasError.message}</Typography>
                     </div>}
 
                 </form>

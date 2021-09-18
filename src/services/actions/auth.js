@@ -15,14 +15,14 @@ export const login = (data) => {
                 return result.json();
             }
             else {
-                return Promise.reject(`Server error while login: ${result.status}`);
+                return Promise.reject(`Server respond error: ${result.status}`);
             }
         }).then(data => {
             if (data.status === 'ok') {
                 dispatch({type: LOGIN_SUCCESS, payload: data});
             }
             else {
-                return Promise.reject(`Server error while login: ${data.status}`);
+                return Promise.reject(data.message.password);
             }
         }).catch(error => {
             dispatch({type: LOGIN_FAILED, payload: error});

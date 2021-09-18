@@ -3,7 +3,8 @@ import {LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILED, LOGOUT} from "../actions/aut
 export const initialState = {
     token: '',
     isAuthenticated: false,
-    isLoggingIn: false
+    isLoggingIn: false,
+    hasError: {error: false, message: ''}
 }
 
 export const auth = (state = initialState, action) => {
@@ -13,17 +14,15 @@ export const auth = (state = initialState, action) => {
         }
 
         case LOGIN_SUCCESS: {
-            localStorage.setItem('token', action.payload.message.token);
-            return {...state, isLoggingIn: false, isAuthenticated: true, token: action.payload.message.token};
+            return {...state, isLoggingIn: false, isAuthenticated: true, token: action.payload.message.token, hasError: {error: false, message: ''}};
         }
 
         case LOGIN_FAILED: {
-            console.log('Error API: ', action.payload);
-            return {...state, token: '', isLoadingTasks: false, hasErrorTasks: false}
+            return {...state, isLoggingIn: false, hasError: {error: true, message: action.payload}}
         }
 
         case LOGOUT: {
-            return {...state, isAuthenticated: false, token: '', isLoadingTasks: false, hasErrorTasks: false}
+            return {...initialState}
         }
 
         default: {
