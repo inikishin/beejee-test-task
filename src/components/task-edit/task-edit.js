@@ -15,7 +15,7 @@ import Status from "../status/status";
 
 const useStyles = makeStyles(theme => (styles));
 
-function TaskEdit({title, closeModal, okModal, username, email, text, status}) {
+const TaskEdit = React.forwardRef( ({title, closeModal, okModal, username, email, text, status}, ref) => {
     const classes = useStyles();
 
     const {isAuthenticated} = useSelector(store => ({...store.auth}))
@@ -108,6 +108,6 @@ function TaskEdit({title, closeModal, okModal, username, email, text, status}) {
             </CardContent>
         </Card>
     )
-}
+});
 
 export default TaskEdit;

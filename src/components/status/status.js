@@ -26,7 +26,7 @@ function Status({statusNumber, isEdit, handleChange}) {
                     >
                         {
                             statuses.map(item => (
-                                <MenuItem value={item.code}>{item.name}</MenuItem>
+                                <MenuItem value={item.code} key={item.code}>{item.name}</MenuItem>
                             ))
                         }
                     </Select>

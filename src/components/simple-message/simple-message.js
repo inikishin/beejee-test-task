@@ -4,7 +4,7 @@ import {makeStyles} from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => (styles));
 
-function SimpleMessage({text}) {
+const SimpleMessage = React.forwardRef( ({text}, ref) => {
     const classes = useStyles();
 
     return (
@@ -12,6 +12,6 @@ function SimpleMessage({text}) {
             {text}
         </div>
     );
-}
+});
 
 export default SimpleMessage;

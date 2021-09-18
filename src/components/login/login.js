@@ -15,7 +15,7 @@ import {login, LOGOUT} from "../../services/actions/auth";
 
 const useStyles = makeStyles(theme => (styles));
 
-function Login({closeModal}) {
+const Login = React.forwardRef( ({closeModal}, ref) => {
 
     const classes = useStyles();
     const dispatch = useDispatch();
@@ -99,16 +99,15 @@ function Login({closeModal}) {
                     </div>
 
                     {hasError.error && <div className={classes.errorMessages}>
-                        <Typography variant="caption" display="block" gutterBottom color="danger">Here is following
+                        <Typography variant="caption" display="block" gutterBottom>Here is following
                             errors:</Typography>
-                        <Typography variant="caption" display="block" gutterBottom
-                                    color="danger">{hasError.message}</Typography>
+                        <Typography variant="caption" display="block" gutterBottom>{hasError.message}</Typography>
                     </div>}
 
                 </form>
             </CardContent>
         </Card>
     )
-}
+});
 
 export default Login;
