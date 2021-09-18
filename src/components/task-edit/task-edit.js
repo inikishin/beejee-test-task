@@ -8,7 +8,6 @@ import {
     Button,
     TextField,
     Grid,
-    Typography,
     makeStyles
 } from "@material-ui/core";
 import {AccountCircle, EmailRounded} from '@material-ui/icons';
@@ -71,7 +70,8 @@ function TaskEdit({title, closeModal, okModal, username, email, text, status}) {
                             </Grid>
                             <Grid item>
                                 <TextField name="email" label="Enter email" fullWidth={true}
-                                           value={form.email} onChange={onChange} type='email' required {...errors.email}/>
+                                           value={form.email} onChange={onChange} type='email'
+                                           required {...errors.email}/>
                             </Grid>
                         </Grid>
                     </div>

@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import styles from './header-styles';
-import {makeStyles, Button, Modal, Grid} from "@material-ui/core";
+import {makeStyles, Button, Modal} from "@material-ui/core";
 import TaskEdit from "../task-edit/task-edit";
 import {useDispatch, useSelector} from "react-redux";
 import {createTask} from "../../services/actions/tasks";

@@ -26,13 +26,12 @@ function TasksList() {
 
     useEffect(() => {
         dispatch(getTasksList(currentPage, sortValue));
-    }, [isCreatingTask, isEditingTask, currentPage, sortValue]);
+    }, [dispatch, isCreatingTask, isEditingTask, currentPage, sortValue]);
 
 
     let pages = Math.ceil(fullTasksCount / 3);
 
     const changePage = (e) => {
-        console.log(Number(e.target.innerText));
         dispatch({type: SET_PAGE, page: Number(e.target.innerText)})
     }
 

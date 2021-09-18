@@ -32,7 +32,7 @@ function Login({closeModal}) {
         if (isAuthenticated) {
             closeModal();
         }
-    }, [isAuthenticated]);
+    }, [isAuthenticated, closeModal]);
 
     const submitForm = () => {
 
@@ -52,7 +52,6 @@ function Login({closeModal}) {
             task.append("password", form.password);
 
             dispatch(login(task));
-            //closeModal();
         }
     }
 
