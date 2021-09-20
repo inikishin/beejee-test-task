@@ -12,11 +12,11 @@ export const EDIT_TASK_REQUEST = 'EDIT_TASK_REQUEST';
 export const EDIT_TASK_SUCCESS= 'EDIT_TASK_SUCCESS';
 
 
-export const getTasksList = (page, sortBy) => {
+export const getTasksList = (page, sortBy, directionBy) => {
     return function (dispatch) {
         dispatch({type: GET_TASKSLIST_REQUEST});
 
-        getTasksListRequest(page, sortBy).then((result) => {
+        getTasksListRequest(page, sortBy, directionBy).then((result) => {
             if (result && result.ok) {
                 return result.json();
             }

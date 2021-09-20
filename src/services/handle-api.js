@@ -2,12 +2,13 @@ const getUrl = (command) => {
     return `https://uxcandy.com/~shapoval/test-task-backend/v2${command}?developer=inikishin`
 }
 
-export const getTasksListRequest = async (page, sortBy) => {
+export const getTasksListRequest = async (page, sortBy, directionBy) => {
     let sort = '';
     if (sortBy !== 'None') {
         sort = `&sort_field=${sortBy}`
     }
-    return await fetch(getUrl('/') + `&page=${page}` + sort);
+
+    return await fetch(getUrl('/') + `&page=${page}` + sort + `&sort_direction=${directionBy}`);
 }
 
 export const createTaskRequest = async (data) => {

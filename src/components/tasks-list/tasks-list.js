@@ -12,6 +12,7 @@ function TasksList() {
     const classes = useStyles();
 
     const [sortValue, setSortValue] = useState('none')
+    const [directionValue, setDirectionValue] = useState('asc')
 
     const dispatch = useDispatch();
     const {
@@ -25,8 +26,8 @@ function TasksList() {
     } = useSelector(store => ({...store.tasks}));
 
     useEffect(() => {
-        dispatch(getTasksList(currentPage, sortValue));
-    }, [dispatch, isCreatingTask, isEditingTask, currentPage, sortValue]);
+        dispatch(getTasksList(currentPage, sortValue, directionValue));
+    }, [dispatch, isCreatingTask, isEditingTask, currentPage, sortValue, directionValue]);
 
 
     let pages = Math.ceil(fullTasksCount / 3);
@@ -38,6 +39,10 @@ function TasksList() {
     const handleSortChange = (e) => {
         setSortValue(e.target.value)
     }
+    const handleDirectionChange = (e) => {
+        setDirectionValue(e.target.value)
+    }
+
 
     if (hasErrorTasks) {
         return (
@@ -48,15 +53,25 @@ function TasksList() {
     } else {
         return (
             <div className={classes.taskListContainer}>
-                <div>
-                    <FormLabel component="legend">Order by:</FormLabel>
-                    <RadioGroup aria-label="gender" name="sort" value={sortValue} onChange={handleSortChange}>
-                        <FormControlLabel value="none" control={<Radio/>} label="None"/>
-                        <FormControlLabel value="username" control={<Radio/>} label="Username"/>
-                        <FormControlLabel value="email" control={<Radio/>} label="E-mail"/>
-                        <FormControlLabel value="status" control={<Radio/>} label="Status"/>
-                    </RadioGroup>
+                <div className={classes.ordersContainer}>
+                    <div className={classes.ordersItem}>
+                        <FormLabel component="legend">Order by:</FormLabel>
+                        <RadioGroup name="sort" value={sortValue} onChange={handleSortChange}>
+                            <FormControlLabel value="none" control={<Radio/>} label="None"/>
+                            <FormControlLabel value="username" control={<Radio/>} label="Username"/>
+                            <FormControlLabel value="email" control={<Radio/>} label="E-mail"/>
+                            <FormControlLabel value="status" control={<Radio/>} label="Status"/>
+                        </RadioGroup>
+                    </div>
+                    <div className={classes.ordersItem}>
+                        <FormLabel component="legend">Direction by:</FormLabel>
+                        <RadioGroup name="direction" value={directionValue} onChange={handleDirectionChange}>
+                            <FormControlLabel value="asc" control={<Radio/>} label="asc"/>
+                            <FormControlLabel value="desc" control={<Radio/>} label="desc"/>
+                        </RadioGroup>
+                    </div>
                 </div>
+
                 <Grid container spacing={10} justifyContent="center" alignItems="center">
 
                     {isLoadingTasks ?
