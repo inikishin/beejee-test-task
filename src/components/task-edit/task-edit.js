@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useSelector} from 'react-redux';
 import styles from './task-edit-styles';
 import {
@@ -15,7 +15,7 @@ import Status from "../status/status";
 
 const useStyles = makeStyles(theme => (styles));
 
-const TaskEdit = React.forwardRef( ({title, closeModal, okModal, username, email, text, status}, ref) => {
+const TaskEdit = React.forwardRef(({title, closeModal, okModal, username, email, text, status}, ref) => {
     const classes = useStyles();
 
     const {isAuthenticated} = useSelector(store => ({...store.auth}))
@@ -26,6 +26,47 @@ const TaskEdit = React.forwardRef( ({title, closeModal, okModal, username, email
     const onChange = (e) => {
         setFormValue({...form, [e.target.name]: e.target.value});
     }
+
+    const onChangeStatus = (e) => {
+        if (e.target.checked) {
+            if (form.status === 0) {
+                setFormValue({...form, status: 10});
+            } else {
+                setFormValue({...form, status: 11});
+            }
+        } else {
+            if (form.status === 10) {
+                setFormValue({...form, status: 0});
+            } else {
+                setFormValue({...form, status: 1});
+            }
+        }
+    }
+
+    const onChangeText = (e) => {
+        setFormValue({...form, text: e.target.value});
+    }
+
+    useEffect(() => {
+        if (status === 0 || status === 10) {
+            if (text !== form.text) {
+                if (form.status === 0) {
+                    setFormValue({...form, status: 1});
+                }
+                else {
+                    setFormValue({...form, status: 11});
+                }
+            }
+            else {
+                if (form.status === 1) {
+                    setFormValue({...form, status: 0});
+                }
+                else {
+                    setFormValue({...form, status: 10});
+                }
+            }
+        }
+    }, [form.text]);
 
     const submitForm = () => {
         let localErrors = {};
@@ -85,14 +126,14 @@ const TaskEdit = React.forwardRef( ({title, closeModal, okModal, username, email
                             variant="outlined"
                             fullWidth={true}
                             value={form.text}
-                            onChange={onChange}
+                            onChange={onChangeText}
                             required
                             {...errors.text}
                         />
                     </div>
 
                     <div className={classes.inputChecker}>
-                        <Status statusNumber={form.status} isEdit={isAuthenticated} handleChange={onChange}/>
+                        <Status statusNumber={form.status} isEdit={isAuthenticated} handleChange={onChangeStatus}/>
                     </div>
 
                     <div className={classes.buttonsContainer}>

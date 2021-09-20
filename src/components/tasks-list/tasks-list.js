@@ -39,10 +39,10 @@ function TasksList() {
     const handleSortChange = (e) => {
         setSortValue(e.target.value)
     }
+
     const handleDirectionChange = (e) => {
         setDirectionValue(e.target.value)
     }
-
 
     if (hasErrorTasks) {
         return (

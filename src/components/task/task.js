@@ -38,9 +38,10 @@ function Task({id, username, email, text, status}) {
     return (
         <>
             <Card className={classes.taskContainer} onClick={openEditModal}>
-                <CardHeader title={`${username} (${email})`}/>
+                <CardHeader title={`User: ${username}`} subheader={`email: ${email}`}/>
                 <CardContent>
                     <Status isEdit={false} statusNumber={status} />
+                    <hr />
                     <h4>Description:</h4>
                     <p>{text}</p>
                 </CardContent>
