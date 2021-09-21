@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from "react";
 import styles from './task-list-style';
 import {useDispatch, useSelector} from "react-redux";
-import {getTasksList, SET_PAGE} from "../../services/actions/tasks";
-import {Grid, makeStyles, FormLabel, RadioGroup, FormControlLabel, Radio} from "@material-ui/core";
+import {CREATE_CLOSE_ALERT, EDIT_CLOSE_ALERT, getTasksList, SET_PAGE} from "../../services/actions/tasks";
+import {Grid, makeStyles, FormLabel, RadioGroup, FormControlLabel, Radio, Box} from "@material-ui/core";
+import MuiAlert from "@material-ui/lab/Alert";
 import Pagination from '@material-ui/lab/Pagination';
 import Task from "../task/task";
 
@@ -19,15 +20,15 @@ function TasksList() {
         tasks,
         isLoadingTasks,
         hasErrorTasks,
-        isCreatingTask,
-        isEditingTask,
+        taskEdited,
+        taskCreated,
         currentPage,
         fullTasksCount
     } = useSelector(store => ({...store.tasks}));
 
     useEffect(() => {
         dispatch(getTasksList(currentPage, sortValue, directionValue));
-    }, [dispatch, isCreatingTask, isEditingTask, currentPage, sortValue, directionValue]);
+    }, [dispatch, taskEdited, taskCreated, currentPage, sortValue, directionValue]);
 
 
     let pages = Math.ceil(fullTasksCount / 3);
@@ -44,6 +45,14 @@ function TasksList() {
         setDirectionValue(e.target.value)
     }
 
+    const handleCreateAlertClose = (e) => {
+        dispatch({type: CREATE_CLOSE_ALERT});
+    }
+
+    const handleEditAlertClose = (e) => {
+        dispatch({type: EDIT_CLOSE_ALERT});
+    }
+
     if (hasErrorTasks) {
         return (
             <div className={classes.taskListContainer}>
@@ -53,6 +62,10 @@ function TasksList() {
     } else {
         return (
             <div className={classes.taskListContainer}>
+                {taskCreated && <MuiAlert elevation={6} variant="filled" severity="success" onClose={handleCreateAlertClose}>Task
+                    created!</MuiAlert>}
+                {taskEdited && <MuiAlert elevation={6} variant="filled" severity="success" onClose={handleEditAlertClose}>Task
+                    edited!</MuiAlert>}
                 <div className={classes.ordersContainer}>
                     <div className={classes.ordersItem}>
                         <FormLabel component="legend">Order by:</FormLabel>
@@ -87,7 +100,9 @@ function TasksList() {
 
                 </Grid>
                 <Grid container spacing={10} justifyContent="center" alignItems="center">
-                    <Pagination count={pages} onChange={changePage}/>
+                    <Box marginTop={5}>
+                        <Pagination count={pages} onChange={changePage}/>
+                    </Box>
                 </Grid>
             </div>
         );

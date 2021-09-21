@@ -48,7 +48,7 @@ const TaskEdit = React.forwardRef(({title, closeModal, okModal, username, email,
     }
 
     useEffect(() => {
-        if (status === 0 || status === 10) {
+        if (isAuthenticated && (status === 0 || status === 10)) {
             if (text !== form.text) {
                 if (form.status === 0) {
                     setFormValue({...form, status: 1});

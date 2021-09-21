@@ -6,10 +6,12 @@ export const GET_TASKSLIST_FAILED = 'GET_TASKSLIST_FAILED';
 export const SET_PAGE = 'SET_PAGE';
 
 export const CREATE_TASK_REQUEST = 'CREATE_TASK_REQUEST';
-export const CREATE_TASK_SUCCESS= 'CREATE_TASK_SUCCESS';
+export const CREATE_TASK_SUCCESS = 'CREATE_TASK_SUCCESS';
+export const CREATE_CLOSE_ALERT = 'CREATE_CLOSE_ALERT';
 
 export const EDIT_TASK_REQUEST = 'EDIT_TASK_REQUEST';
 export const EDIT_TASK_SUCCESS= 'EDIT_TASK_SUCCESS';
+export const EDIT_CLOSE_ALERT = 'EDIT_CLOSE_ALERT';
 
 
 export const getTasksList = (page, sortBy, directionBy) => {

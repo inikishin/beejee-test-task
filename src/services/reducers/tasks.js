@@ -5,8 +5,10 @@ import {
     SET_PAGE,
     CREATE_TASK_REQUEST,
     CREATE_TASK_SUCCESS,
+    CREATE_CLOSE_ALERT,
     EDIT_TASK_REQUEST,
-    EDIT_TASK_SUCCESS
+    EDIT_TASK_SUCCESS,
+    EDIT_CLOSE_ALERT
 } from "../actions/tasks";
 
 export const initialState = {
@@ -15,8 +17,8 @@ export const initialState = {
     currentPage: 1,
     isLoadingTasks: false,
     hasErrorTasks: false,
-    isCreatingTask: false,
-    isEditingTask: false
+    taskCreated: false,
+    taskEdited: false
 }
 
 export const tasks = (state = initialState, action) => {
@@ -39,19 +41,27 @@ export const tasks = (state = initialState, action) => {
         }
 
         case CREATE_TASK_REQUEST: {
-            return {...state, isCreatingTask: true};
+            return {...state, taskCreated: false};
         }
 
         case CREATE_TASK_SUCCESS: {
-            return {...state, isCreatingTask: false};
+            return {...state, taskCreated: true};
+        }
+
+        case CREATE_CLOSE_ALERT: {
+            return {...state, taskCreated: false};
         }
 
         case EDIT_TASK_REQUEST: {
-            return {...state, isEditingTask: true};
+            return {...state, taskEdited: false};
         }
 
         case EDIT_TASK_SUCCESS: {
-            return {...state, isEditingTask: false};
+            return {...state, taskEdited: true};
+        }
+
+        case EDIT_CLOSE_ALERT: {
+            return {...state, taskEdited: false};
         }
 
         default: {
