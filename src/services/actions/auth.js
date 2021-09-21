@@ -3,8 +3,8 @@ import {loginRequest} from "../handle-api";
 export const LOGIN_REQUEST = 'LOGIN_REQUEST';
 export const LOGIN_SUCCESS= 'LOGIN_SUCCESS';
 export const LOGIN_FAILED = 'LOGIN_FAILED';
-
 export const LOGOUT = 'LOGOUT';
+export const LOGIN_WITH_TOKEN = 'LOGIN_WITH_TOKEN';
 
 export const login = (data) => {
     return function (dispatch) {
