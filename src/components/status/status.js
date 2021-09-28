@@ -6,7 +6,6 @@ const useStyles = makeStyles(theme => (styles))
 
 function Status({statusNumber, isEdit, handleChange}) {
 
-    console.log(statusNumber);
     const classes = useStyles();
 
     const statuses = [

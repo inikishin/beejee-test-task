@@ -23,8 +23,6 @@ const TaskEdit = React.forwardRef(({kind, title, closeModal, okModal, username, 
     const [form, setFormValue] = useState({username: username, email: email, text: text, status: status});
     const [errors, setErrors] = useState({});
 
-    console.log(form);
-
     const onChange = (e) => {
         setFormValue({...form, [e.target.name]: e.target.value});
     }
@@ -61,8 +59,6 @@ const TaskEdit = React.forwardRef(({kind, title, closeModal, okModal, username, 
                 if (form.status === 1) {
                     setFormValue({...form, status: 0});
                 } else if (form.status === 11) {
-                    console.log('raz', text);
-                    console.log('dva', form.text);
                     setFormValue({...form, status: 10});
                 }
             }
