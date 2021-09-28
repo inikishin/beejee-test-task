@@ -15,13 +15,15 @@ import Status from "../status/status";
 
 const useStyles = makeStyles(theme => (styles));
 
-const TaskEdit = React.forwardRef(({title, closeModal, okModal, username, email, text, status}, ref) => {
+const TaskEdit = React.forwardRef(({kind, title, closeModal, okModal, username, email, text, status}, ref) => {
     const classes = useStyles();
 
     const {isAuthenticated} = useSelector(store => ({...store.auth}))
 
     const [form, setFormValue] = useState({username: username, email: email, text: text, status: status});
     const [errors, setErrors] = useState({});
+
+    console.log(form);
 
     const onChange = (e) => {
         setFormValue({...form, [e.target.name]: e.target.value});
@@ -48,20 +50,19 @@ const TaskEdit = React.forwardRef(({title, closeModal, okModal, username, email,
     }
 
     useEffect(() => {
-        if (isAuthenticated && (status === 0 || status === 10)) {
+        if (isAuthenticated && kind === 'edit' && (status === 0 || status === 10)) {
             if (text !== form.text) {
                 if (form.status === 0) {
                     setFormValue({...form, status: 1});
-                }
-                else {
+                } else if (form.status === 10) {
                     setFormValue({...form, status: 11});
                 }
-            }
-            else {
+            } else {
                 if (form.status === 1) {
                     setFormValue({...form, status: 0});
-                }
-                else {
+                } else if (form.status === 11) {
+                    console.log('raz', text);
+                    console.log('dva', form.text);
                     setFormValue({...form, status: 10});
                 }
             }

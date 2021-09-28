@@ -68,7 +68,7 @@ function Header() {
                 </div>
             </div>
             <Modal open={isModalOpen} onClose={closeEditModal}>
-                <TaskEdit title="Create task" closeModal={closeEditModal} okModal={createTaskModal} username='' email=''
+                <TaskEdit kind='create' title="Create task" closeModal={closeEditModal} okModal={createTaskModal} username='' email=''
                           text='' status={0}/>
             </Modal>
 

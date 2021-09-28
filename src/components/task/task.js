@@ -49,7 +49,7 @@ function Task({id, username, email, text, status}) {
             <Modal open={isModalOpen} onClose={closeEditModal}>
 
                 {isAuthenticated ?
-                    <TaskEdit title="Edit task" closeModal={closeEditModal} okModal={editTaskModal} username={username}
+                    <TaskEdit kind='edit' title="Edit task" closeModal={closeEditModal} okModal={editTaskModal} username={username}
                            email={email} text={text} status={status}/>
                 :
                     <SimpleMessage text='You are not authenticated' />
