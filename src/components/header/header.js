@@ -63,7 +63,7 @@ function Header() {
                         </div>
                 }
                 <div className={classes.button}>
-                    <Button variant="contained" color="secondary" size='large' onClick={openEditModal}>Create
+                    <Button variant="contained" color="secondary" size='large' onClick={openEditModal}>Create new
                         task</Button>
                 </div>
             </div>
